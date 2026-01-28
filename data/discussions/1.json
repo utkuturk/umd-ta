@@ -1,0 +1,71 @@
+{
+  "id": "D_kwDORAGWBM4Aj2Oz",
+  "number": 1,
+  "title": "How do I run simulations and a power analysis to test for a 2 x 2 x 2 interaction?",
+  "body": "I conducted two 2 x 2 SPR studies in Spanish based on [Kush, Lidz, & Phillips (2015)](https://www.sciencedirect.com/science/article/pii/S0749596X15000224?casa_token=etTE-PhjaL8AAAAA:sRaGSWa5n9bhm5p32J7Ibq9Ar3GbLTwB6prVwW1ttepofFBH8bpic-5Rqbm4t7MFjxYN3dTKLw). \r\n\r\nBoth experiments manipulated the factors NP Referentiality (NP | QP) and GenderMatch between the NP/QP in an RC and a later pronoun in the MC (Match | Mismatch). We ran these studies in Spanish because it allows both preverbal and postverbal object pronouns. Accordingly, critical pronouns were preverbal in Exp. 1 and postverbal in Exp. 2. \r\n\r\nThe question I want to answer is whether pronoun position (preverbal vs. postverbal) modulates interference from gender-matching but structurally-inappropriate QPs. To do so, I need to run a 2 x 2 x 2 experiment with the factors NP Referentiality, GenderMatch and Position and test for a 3-way interaction. \r\n\r\n**Goal:** Figure out how to run simulations and a power analysis to find out how many participants I'd need to find the 3-way interaction, if it were there.\r\n\r\n**My repo:** [https://github.com/jorquer4/BV-Project](url)\r\n**The .csv file containing the combined data for both experiments:** [https://github.com/jorquer4/BV-Project/blob/main/merged_bv_data.csv](url)\r\n**The .csv file with just the preverbal experiment:** [https://github.com/jorquer4/BV-Project/blob/main/PrevExpData.csv](url)\r\n**The .csv file with just the postverbal experiment:**\r\nMy R code with some descriptives, graphs and a lmer model: [https://github.com/jorquer4/BV-Project/blob/main/BV_Power_Analysis.R](url)\r\n**My MA thesis, which talks about each experiment in length:** [https://github.com/jorquer4/BV-Project/blob/main/jorquera_forum_paper.pdf](url)\r\n\r\n**Question:** Should I go Bayesian with either my models, the power analysis or both?\r\n\r\nThanks so much!",
+  "author": {
+    "login": "jorquer4",
+    "avatar_url": "https://avatars.githubusercontent.com/u/239829229?v=4",
+    "url": "https://github.com/jorquer4"
+  },
+  "created_at": "2026-01-27T23:01:53Z",
+  "updated_at": "2026-01-27T23:03:35Z",
+  "closed": false,
+  "locked": false,
+  "url": "https://github.com/utkuturk/umd-ta/discussions/1",
+  "category": {
+    "id": "DIC_kwDORAGWBM4C1Wd-",
+    "name": "R Coding/Modeling",
+    "description": "",
+    "emoji": ":registered:",
+    "is_answerable": false
+  },
+  "labels": [],
+  "comments": [],
+  "answer": null,
+  "answer_chosen_at": null,
+  "state_reason": null,
+  "reactions": [
+    {
+      "content": "THUMBS_UP",
+      "total_count": 0,
+      "users": []
+    },
+    {
+      "content": "THUMBS_DOWN",
+      "total_count": 0,
+      "users": []
+    },
+    {
+      "content": "LAUGH",
+      "total_count": 0,
+      "users": []
+    },
+    {
+      "content": "HOORAY",
+      "total_count": 0,
+      "users": []
+    },
+    {
+      "content": "CONFUSED",
+      "total_count": 0,
+      "users": []
+    },
+    {
+      "content": "HEART",
+      "total_count": 0,
+      "users": []
+    },
+    {
+      "content": "ROCKET",
+      "total_count": 0,
+      "users": []
+    },
+    {
+      "content": "EYES",
+      "total_count": 0,
+      "users": []
+    }
+  ],
+  "upvote_count": 1
+}
