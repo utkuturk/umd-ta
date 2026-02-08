@@ -9,7 +9,7 @@
     "url": "https://github.com/jorquer4"
   },
   "created_at": "2026-01-27T23:01:53Z",
-  "updated_at": "2026-02-03T02:23:12Z",
+  "updated_at": "2026-02-07T18:30:32Z",
   "closed": false,
   "locked": false,
   "url": "https://github.com/utkuturk/umd-ta/discussions/1",
@@ -151,6 +151,64 @@
       },
       "created_at": "2026-02-03T02:23:11Z",
       "updated_at": "2026-02-03T02:23:11Z",
+      "is_answer": false,
+      "replies": [],
+      "minimized_reason": null,
+      "is_minimized": false,
+      "reactions": [
+        {
+          "content": "THUMBS_UP",
+          "total_count": 0,
+          "users": []
+        },
+        {
+          "content": "THUMBS_DOWN",
+          "total_count": 0,
+          "users": []
+        },
+        {
+          "content": "LAUGH",
+          "total_count": 0,
+          "users": []
+        },
+        {
+          "content": "HOORAY",
+          "total_count": 0,
+          "users": []
+        },
+        {
+          "content": "CONFUSED",
+          "total_count": 0,
+          "users": []
+        },
+        {
+          "content": "HEART",
+          "total_count": 0,
+          "users": []
+        },
+        {
+          "content": "ROCKET",
+          "total_count": 0,
+          "users": []
+        },
+        {
+          "content": "EYES",
+          "total_count": 0,
+          "users": []
+        }
+      ],
+      "upvote_count": 1
+    },
+    {
+      "id": "DC_kwDORAGWBM4A7_58",
+      "body": "The start would look like this: \r\n\r\n```r\r\n\r\nprior_means <- list(\r\n  intercept = 6.112567,\r\n  GenderMatch = 0.011246,\r\n  Referentiality = 0.015470,\r\n  Position = 0.018774,\r\n  GenderMatch_Referentiality = -0.002075,\r\n  GenderMatch_Position = 0.004442,\r\n  Referentiality_Position = -0.003783,\r\n  GenderMatch_Referentiality_Position = -0.003985,\r\n  sd_subject = 0.076,\r\n  sd_item = 0.030,\r\n  sd_residual = 0.126\r\n)\r\n\r\n\r\nprior_sds <- list(\r\n  intercept = 0.021475,\r\n  GenderMatch = 0.006345,\r\n  Referentiality = 0.007445,\r\n  Position = 0.041711,\r\n  GenderMatch_Referentiality = 0.010988,\r\n  GenderMatch_Position = 0.010492,\r\n  Referentiality_Position = 0.010289,\r\n  GenderMatch_Referentiality_Position = 0.019690,\r\n  sd_subject = 0.03,\r\n  sd_item = 0.02,\r\n  sd_residual = 0.05\r\n)\r\n\r\n\r\nsim_data <- function(seed, n_subs, n_items_per_cond = 6, prior_means, prior_sds) {\r\n  \r\n  set.seed(seed)\r\n  \r\n  sampled <- list(\r\n    intercept   = rnorm(1, prior_means$intercept, prior_sds$intercept),\r\n    beta_GM     = rnorm(1, prior_means$GenderMatch, prior_sds$GenderMatch),\r\n    beta_Ref    = rnorm(1, prior_means$Referentiality, prior_sds$Referentiality),\r\n    beta_Pos    = rnorm(1, prior_means$Position, prior_sds$Position),\r\n    beta_GM_Ref = rnorm(1, prior_means$GenderMatch_Referentiality, prior_sds$GenderMatch_Referentiality),\r\n    beta_GM_Pos = rnorm(1, prior_means$GenderMatch_Position, prior_sds$GenderMatch_Position),\r\n    beta_Ref_Pos = rnorm(1, prior_means$Referentiality_Position, prior_sds$Referentiality_Position),\r\n    beta_GM_Ref_Pos = rnorm(1, prior_means$GenderMatch_Referentiality_Position, prior_sds$GenderMatch_Referentiality_Position),\r\n    # SDs must be positive - use abs() or truncnorm\r\n    sd_subject   = abs(rnorm(1, prior_means$sd_subject, prior_sds$sd_subject)),\r\n    sd_item      = abs(rnorm(1, prior_means$sd_item, prior_sds$sd_item)),\r\n    sd_residual  = abs(rnorm(1, prior_means$sd_residual, prior_sds$sd_residual))\r\n  )\r\n  # R = Referential, M = Match, Q = Quantificational, S = Mismatch, E = Preverbal, T = Postverbal\r\n  conditions <- c(\"EMR\", \"ESR\", \"EMQ\", \"ESQ\", \"TMR\", \"TSR\", \"TMQ\", \"TSQ\")\r\n  n_items <- n_items_per_cond * length(conditions)\r\n  \r\n  item_bank <- tibble(\r\n    item = paste0(\"i_\", 1:n_items),\r\n    target_type = rep(conditions, each = n_items_per_cond)\r\n  )\r\n  \r\n  d <- expand_grid(\r\n    subject = paste0(\"s_\", 1:n_subs),\r\n    item = item_bank$item\r\n  ) %>%\r\n    left_join(item_bank, by = \"item\") %>%\r\n    mutate(\r\n      subj_num = as.numeric(gsub(\"s_\", \"\", subject)),\r\n      item_num = as.numeric(gsub(\"i_\", \"\", item)),\r\n      Gender = ifelse(grepl(\"M\", target_type), \"Match\", \"Mismatch\"),\r\n      Referentiality = ifelse(grepl(\"R\", target_type), \"Referential\", \"Quantificational\"),\r\n      Position = ifelse(grepl(\"E\", target_type), \"Preverbal\", \"Postverbal\"),\r\n      condition = target_type\r\n    )\r\n  \r\n  subj_re <- tibble(\r\n    subject = paste0(\"s_\", 1:n_subs),\r\n    re_subj = rnorm(n_subs, 0, sampled$sd_subject)\r\n  )\r\n  \r\n  item_re <- tibble(\r\n    item = paste0(\"i_\", 1:n_items),\r\n    re_item = rnorm(n_items, 0, sampled$sd_item)\r\n  )\r\n  \r\n  \r\n  d <- d %>%\r\n    left_join(subj_re, by = \"subject\") %>%\r\n    left_join(item_re, by = \"item\") %>%\r\n    mutate(\r\n      contr_Gender = ifelse(Gender == \"Match\", -0.5, 0.5),\r\n      contr_Referentiality = ifelse(Referentiality == \"Referential\", -0.5, 0.5),\r\n      contr_Position = ifelse(Position == \"Postverbal\", -0.5, 0.5),\r\n      \r\n      mu = sampled$intercept +\r\n        sampled$beta_GM * contr_Gender +\r\n        sampled$beta_Ref * contr_Referentiality +\r\n        sampled$beta_Pos * contr_Position +\r\n        sampled$beta_GM_Ref * contr_Gender * contr_Referentiality +\r\n        sampled$beta_GM_Pos * contr_Gender * contr_Position +\r\n        sampled$beta_Ref_Pos * contr_Referentiality * contr_Position +\r\n        sampled$beta_GM_Ref_Pos * contr_Gender * contr_Referentiality * contr_Position +\r\n        re_subj + re_item,\r\n      \r\n      log_rt = rnorm(n(), mu, sampled$sd_residual)\r\n    ) %>%\r\n    select(subject, item, condition, contr_Gender, contr_Referentiality, contr_Position, log_rt)\r\n  \r\n  return(list(data = d, sampled_params = sampled))\r\n}\r\n\r\n```\r\n\r\nI think you have to think about the sd and mean that you are putting for `GenderMatch_Referentiality_Position` here since that is what you are going to test by simulation. So if you believe there is a small effect and you should make sure that the number you put here and then in the priors should reflect that effect. And you should change the deviation related number and see how the sensitivity goes. It is possible that you might underestimate the variation and get a good 'power' number... \r\n\r\n",
+      "author": {
+        "login": "utkuturk",
+        "avatar_url": "https://avatars.githubusercontent.com/u/34624245?u=f8cdb9ab7f065d0ea2274ec098ffdb17a4b1365b&v=4",
+        "url": "https://github.com/utkuturk"
+      },
+      "created_at": "2026-02-07T18:30:32Z",
+      "updated_at": "2026-02-07T18:30:47Z",
       "is_answer": false,
       "replies": [],
       "minimized_reason": null,
